@@ -1,10 +1,17 @@
 #!/bin/bash
 
+# just in case it is run on non-disposable server
+export PASSWORD=$(openssl rand -base64 12)
+
+# just in case we need it after boot or smth
+echo "export PASSWORD=$PASSWORD" > .env.sh
+chmod +x .env.sh
+
 # Install mariadb, sysbench, speedtest_cli, python
 
 export DEBIAN_FRONTEND=noninteractive
-debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password password test'
-debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password_again password test'
+debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password password $PASSWORD'
+debconf-set-selections <<< 'mariadb-server-10.0 mysql-server/root_password_again password $PASSWORD'
 
 apt-get update
 apt-get -y upgrade
@@ -21,7 +28,4 @@ chmod 755 speedtest-linux-amd64-speed-issues
 sysbench --test=fileio --file-total-size=6G prepare
 
 mysql -uroot --password=test -e "create database test"
-sysbench --test=oltp --oltp-table-size=1000000 --mysql-db=test --mysql-user=root --mysql-password=test prepare
-
-
-
+sysbench --test=oltp --oltp-table-size=1000000 --mysql-db=test --mysql-user=root --mysql-password=$PASSWORD prepare

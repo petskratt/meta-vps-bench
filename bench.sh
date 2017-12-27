@@ -13,13 +13,13 @@ echo "**** CPU4"
 sysbench --test=cpu --cpu-max-prime=100000 --num-threads=4 run >> cpu4.result
 
 echo "**** OLTP1" 
-sysbench --test=oltp --oltp-table-size=1000000 --mysql-db=test --mysql-user=root --mysql-password=test --num-threads=1 --max-time=60 run >> oltp1.result
+sysbench --test=oltp --oltp-table-size=1000000 --mysql-db=test --mysql-user=root --mysql-password=$PASSWORD --num-threads=1 --max-time=60 run >> oltp1.result
 
 echo "**** OLTP4" 
-sysbench --test=oltp --oltp-table-size=1000000 --mysql-db=test --mysql-user=root --mysql-password=test --num-threads=4 --max-time=60 run >> oltp4.result
+sysbench --test=oltp --oltp-table-size=1000000 --mysql-db=test --mysql-user=root --mysql-password=$PASSWORD --num-threads=4 --max-time=60 run >> oltp4.result
 
 echo "**** OLTP8" 
-sysbench --test=oltp --oltp-table-size=1000000 --mysql-db=test --mysql-user=root --mysql-password=test --num-threads=8 --max-time=60 run >> oltp8.result
+sysbench --test=oltp --oltp-table-size=1000000 --mysql-db=test --mysql-user=root --mysql-password=$PASSWORD --num-threads=8 --max-time=60 run >> oltp8.result
 
 echo "**** RNDRW - random read/write"
 sysbench --test=fileio --file-total-size=6G --file-test-mode=rndrw --max-time=300 run >> rndrw.result
