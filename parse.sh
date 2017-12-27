@@ -18,14 +18,13 @@ RESULT_SEQRD="$(cat seqrd.result |grep Read|grep Written|cut -f2 -d"("|cut -f1 -
 RESULT_SEREWR="$(cat seqrewr.result |grep Read|grep Written|cut -f2 -d"("|cut -f1 -d")"|xargs|grep Mb|cut -f1 -d"M")"
 RESULT_SEQWR="$(cat seqwr.result |grep Read|grep Written|cut -f2 -d"("|cut -f1 -d")"|xargs|grep Mb|cut -f1 -d"M")"
 
-
+RESULT_MEMORY="$(cat memory.result |grep "total time:"| cut -f2 -d":"|xargs|cut -d "s" -f1)"
 
 
 ###############
 
 # Header Row
-echo "CPU1,CPU2,CPU4,OLTP1,OLTP4,OLTP8,RNDWR,RNDRD,RNDRW,SEQRD,SEREWR,SEQWR"
+echo "CPU1,CPU2,CPU4,OLTP1,OLTP4,OLTP8,RNDWR,RNDRD,RNDRW,SEQRD,SEREWR,SEQWR,MEMORY"
 
 
-echo "$RESULT_CPU1,$RESULT_CPU2,$RESULT_CPU4 ,$RESULT_OLTP1,$RESULT_OLTP4,$RESULT_OLTP8,$RESULT_RNDWR,$RESULT_RNDRD,$RESULT_RNDRW,$RESULT_SEQRD,$RESULT_SEREWR,$RESULT_SEQWR"
-
+echo "$RESULT_CPU1,$RESULT_CPU2,$RESULT_CPU4,$RESULT_OLTP1,$RESULT_OLTP4,$RESULT_OLTP8,$RESULT_RNDWR,$RESULT_RNDRD,$RESULT_RNDRW,$RESULT_SEQRD,$RESULT_SEREWR,$RESULT_SEQWR,RESULT_MEMORY"
