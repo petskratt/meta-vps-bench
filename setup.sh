@@ -27,5 +27,5 @@ chmod 755 speedtest-linux-amd64-speed-issues
 
 sysbench --test=fileio --file-total-size=6G prepare
 
-mysql -uroot --password=test -e "create database test"
+mysql -uroot --password=$PASSWORD -e "create database test"
 sysbench --test=oltp --oltp-table-size=1000000 --mysql-db=test --mysql-user=root --mysql-password=$PASSWORD prepare
